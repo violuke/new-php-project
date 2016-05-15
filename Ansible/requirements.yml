@@ -1,0 +1,5 @@
+---
+# Install required roles from the Ansible Galaxy
+
+# After editing this file, install roles with the following command
+# cd /etc/ansible && ansible-galaxy install -r requirements.yml

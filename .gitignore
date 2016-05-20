@@ -3,3 +3,6 @@
 
 # I use PhpStorm
 .idea
+
+# Uncomment this if you want very private stuff in your repo. I'd suggest using git-crypt
+Private

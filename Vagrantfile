@@ -11,18 +11,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		v.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root", "1"]
 	end
 
-	# Define ansible vagrant box
-	config.vm.define "ansible" do |ansible|
-		ansible.vm.network :private_network, ip: "10.0.60.2"
-		ansible.vm.synced_folder ".", "/vagrant"
-		ansible.vm.provision "shell", path: "vagrantProvisioning/ansible.sh"
-	end
-
-	# How other boxes will work needs thinking about
-    # Define web vagrant box
-    #config.vm.define "web" do |web|
-    #	web.vm.network :private_network, ip: "10.0.60.3"
-    #	web.vm.synced_folder ".", "/vagrant", id: "vagrant-root", owner: "vagrant", group: "www-data", mount_options: ["dmode=775,fmode=664"]
-    #	web.vm.provision "shell", path: "vagrantProvisioning/web.sh"
-    #end
+    config.vm.network :private_network, ip: "10.0.60.3"
+    config.vm.synced_folder ".", "/vagrant", id: "vagrant-root"
+    config.vm.provision "shell", path: "vagrantProvisioning/docker.sh"
 end

@@ -1,0 +1,59 @@
+version: '2'
+services:
+  web1:
+    build: .
+    ports:
+    - "80:80"
+    - "443:443"
+    volumes:
+    - code:/code
+    links:
+    - db1
+    - db2
+    - db3
+    - db4
+  db1:
+    build: .
+#    ports:
+#    - "3306:3306"
+#    - "4567:4567"
+#    - "4568:4568"
+#    - "4444:4444"
+    volumes:
+    - .:/code
+  db2:
+    build: .
+#    ports:
+#    - "3306:3306"
+#    - "4567:4567"
+#    - "4568:4568"
+#    - "4444:4444"
+    volumes:
+    - code:/code
+    links:
+    - db1
+  db3:
+    build: .
+#    ports:
+#    - "3306:3306"
+#    - "4567:4567"
+#    - "4568:4568"
+#    - "4444:4444"
+    volumes:
+    - code:/code
+    links:
+    - db1
+  db4:
+    build: .
+#    ports:
+#    - "3306:3306"
+#    - "4567:4567"
+#    - "4568:4568"
+#    - "4444:4444"
+    volumes:
+    - code:/code
+    links:
+    - db1
+
+volumes:
+  code: {}

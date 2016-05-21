@@ -13,5 +13,5 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     config.vm.network :private_network, ip: "10.0.60.2"
     config.vm.synced_folder ".", "/vagrant", id: "vagrant-root"
-    config.vm.provision "shell", path: "vagrantProvisioning/docker.sh"
+    config.vm.provision "shell", path: "VagrantProvisioning/build.sh"
 end

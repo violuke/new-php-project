@@ -82,9 +82,9 @@ docker network create violuke-local
 docker-compose up -d
 docker run -it --publish-service web1.violuke-local web1
 docker run -it --publish-service db1.violuke-local db1
-docker run -it --publish-service db2.violuke-local db2
-docker run -it --publish-service db3.violuke-local db3
-docker run -it --publish-service db4.violuke-local db4
+#docker run -it --publish-service db2.violuke-local db2
+#docker run -it --publish-service db3.violuke-local db3
+#docker run -it --publish-service db4.violuke-local db4
 
 echo_title "Removing copied SSH keys again after use"
 rm -f /vagrant/VagrantProvisioning/development.pub

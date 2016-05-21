@@ -11,7 +11,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		v.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root", "1"]
 	end
 
-    config.vm.network :private_network, ip: "10.0.60.3"
+    config.vm.network :private_network, ip: "10.0.60.2"
     config.vm.synced_folder ".", "/vagrant", id: "vagrant-root"
     config.vm.provision "shell", path: "vagrantProvisioning/docker.sh"
 end

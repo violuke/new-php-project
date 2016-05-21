@@ -10,12 +10,8 @@ CMD ["/sbin/my_init"]
 # Ensure we're up to date
 RUN apt-get update && apt-get upgrade -y -o Dpkg::Options::="--force-confold"
 
+# Install python so Ansible can run on it
+RUN apt-get install -y python python-simplejson
+
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-# Get SSH running
-#RUN rm -f /etc/service/sshd/down
-
-# Sort out SSH keys
-#ADD development.pub /tmp/development.pub
-#RUN cat /tmp/development.pub >> /root/.ssh/authorized_keys && rm -f /tmp/development.pub

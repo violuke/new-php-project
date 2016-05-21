@@ -1,0 +1,6 @@
+---
+- hosts: live_web
+  become: yes
+
+  roles:
+  - { role: mmacia.apt, become: yes } # Update all installed packages

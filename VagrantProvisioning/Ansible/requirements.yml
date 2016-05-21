@@ -1,0 +1,65 @@
+---
+# Install required roles from the Ansible Galaxy
+
+# NTP installation and configuration for Linux - https://galaxy.ansible.com/geerlingguy/ntp/
+- src: geerlingguy.ntp
+  version: 1.0.4
+
+# Set up htop in Debian-like systems - https://galaxy.ansible.com/tersmitten/htop/
+- src: tersmitten.htop
+  version: v2.0.1
+
+# Setup unattended-upgrades on Debian-based systems - https://galaxy.ansible.com/jnv/unattended-upgrades/
+- src: jnv.unattended-upgrades
+  version: v1.1.1
+
+# Update all installed packages - https://galaxy.ansible.com/mmacia/apt/
+- src: mmacia.apt
+  version: v1.0.0
+
+# Nginx installation for Linux/UNIX - https://galaxy.ansible.com/geerlingguy/nginx/
+- src: geerlingguy.nginx
+  version: 1.5.1
+
+# Installs and configure PHP 7 on Debian/Ubuntu servers - https://galaxy.ansible.com/itcraftsmanpl/php7/
+- src: itcraftsmanpl.php7
+  version: 1.0.0
+
+# User creation role - https://galaxy.ansible.com/mivok0/users/
+- src: mivok0.users
+  version: db443a2a93215de60a06d16461a5bc019b8632e7
+
+# Ansible role for deploying sources from git repository - https://galaxy.ansible.com/webbylab/sources/
+- src: webbylab.sources
+  version: 6486075a75c646d6d1d44d31dee89c235b89ddbc
+
+# Manage iptables firewall using ferm - https://galaxy.ansible.com/debops/ferm/
+- src: debops.ferm
+  version: v0.1.4
+
+# Git version control software - https://galaxy.ansible.com/geerlingguy/git/
+- src: geerlingguy.git
+  version: 1.1.1
+
+# Composer PHP Dependency Manager - https://galaxy.ansible.com/geerlingguy/composer/
+- src: geerlingguy.composer
+  version: 1.4.0
+
+# Install and manage a MariaDB / MySQL server - https://galaxy.ansible.com/debops/mariadb_server/
+- src: debops.mariadb_server
+  version: v0.1.2
+
+# Install and manage a MariaDB / MySQL client - https://galaxy.ansible.com/debops/mariadb/
+- src: debops.mariadb
+  version: v0.1.1
+
+# Install a set of Ansible local facts on remote host - https://galaxy.ansible.com/debops/core/
+- src: debops.core
+  version: v0.1.4
+
+# MySQL server for RHEL/CentOS and Debian/Ubuntu. - https://galaxy.ansible.com/geerlingguy/mysql/
+- src: geerlingguy.mysql
+  version: 2.0.2
+
+# After editing this file, install roles with the following command
+# cd /etc/ansible && ansible-galaxy install -r requirements.yml

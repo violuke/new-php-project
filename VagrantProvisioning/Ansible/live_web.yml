@@ -1,0 +1,57 @@
+---
+- hosts: live_web
+  vars_files:
+    - vars/common.yml
+    - vars/live_web.yml
+    - vars/users.yml
+
+  vars:
+    # Add used wanted on the server here
+    users:
+      - "{{ user_lukecousins }}"
+
+    # Add users to revoke access from here
+#    users_deleted:
+#      - "{{ user_lukecousins }}"
+
+  pre_tasks:
+    - name: determine number of processors for the nginx_worker_processes variable
+      shell: grep processor /proc/cpuinfo | wc -l
+      register: nginx_worker_processes
+      ignore_errors: True
+
+    - set_fact: nginx_worker_processes="{{nginx_worker_processes.stdout}}"
+
+    - debug: msg="Determined to have {{ nginx_worker_processes }} processors, so will use that for the number of nginx worker processes."
+
+    - name: Remove apache as it will conflict with Nginx
+      become: yes
+      apt: name=apache2 state=absent
+      notify:
+        - reload nginx
+
+
+  roles:
+    # Common things
+    - { role: debops.core, become: yes } # A core module to help with debops modules
+    - { role: geerlingguy.ntp, become: yes } # Install and configure ntp
+    - { role: tersmitten.htop, become: yes } # Install and configure htop
+    - { role: mivok0.users, become: yes } # Sets up user accounts
+    - { role: geerlingguy.git, become: yes } # Installs git
+    - { role: itcraftsmanpl.php7, become: yes } # Install and configure php
+    - { role: geerlingguy.nginx, become: yes } # Install and configure nginx
+    - { role: geerlingguy.composer, become: yes } # Installs composer
+    - { role: geerlingguy.mysql, become: yes } # Install mariadb server and client
+
+    # Set up unattanded upgrades
+    # This is not wanted on dev machines
+    - role: jnv.unattended-upgrades
+      become: yes
+      unattended_origins_patterns:
+      - 'origin=Ubuntu,archive=${distro_codename}-security'
+      - 'o=Ubuntu,a=${distro_codename}-updates'
+      unattended_remove_unused_dependencie: true
+
+
+  tasks:
+    - include: tasks/common.yml

@@ -1,0 +1,76 @@
+---
+ferm: False # Disable all debops firewall stuff for now
+ferm_enabled: False
+
+nginx_vhosts:
+  - listen: "80 default_server"
+    server_name: "local.www.example.com www.example.com"
+    root: "/var/www/Web/web"
+    index: "index.php"
+    extra_parameters: |
+      # Config based on http://symfony.com/doc/current/cookbook/configuration/web_server_configuration.html
+
+      sendfile off; # Only required on dev http://stackoverflow.com/questions/17286790/shared-folder-with-vagrant-cause-invisible-characters-appending
+
+      location / {
+          # try to serve file directly, fallback to app.php
+          try_files $uri /app.php$is_args$args;
+      }
+
+      # DEV
+      # This rule should only be placed on your development environment
+      # In production, don't include this and don't deploy app_dev.php or config.php
+      location ~ ^/(app_dev|config)\.php(/|$) {
+          fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
+          fastcgi_split_path_info ^(.+\.php)(/.*)$;
+          include fastcgi_params;
+          # When you are using symlinks to link the document root to the
+          # current version of your application, you should pass the real
+          # application path instead of the path to the symlink to PHP
+          # FPM.
+          # Otherwise, PHP's OPcache may not properly detect changes to
+          # your PHP files (see https://github.com/zendtech/ZendOptimizerPlus/issues/126
+          # for more information).
+          fastcgi_param SCRIPT_FILENAME  $realpath_root$fastcgi_script_name;
+          fastcgi_param DOCUMENT_ROOT $realpath_root;
+      }
+
+nginx_worker_processes: "4" # Should ideally be (as is with a pre_task) overriden by a command determining the number of processors by using: grep processor /proc/cpuinfo | wc -l
+nginx_worker_connections: "1024"
+
+nginx_keepalive_timeout: "65"
+nginx_keepalive_requests: "300" # 30 seconds
+
+php_ppa: "ppa:ondrej/php"
+php_packages:
+  - php7.0-common
+  - php7.0-cli
+  - php7.0-intl
+  - php7.0-curl
+  - php7.0-fpm
+  - php7.0-mysql
+  - php7.0-gd
+  - php7.0-json
+  - php7.0-xml
+  - php7.0-mbstring
+  - php7.0-zip
+php_upload_max_filesize: "20M"
+php_post_max_size: "20M"
+php_memory_limit: "1024M"
+server: {timezone: "{{ ntp_timezone }}"}
+
+mysql_root_password: "[SETME]"
+
+mysql_databases:
+  - name: "[SETME]"
+
+mysql_users:
+  - name: "[SETME]"
+    password: "[SETME]"
+    priv: "[SETME].*:ALL"
+
+mysql_packages:
+  - mariadb-client
+  - mariadb-server
+  - python-mysqldb
+

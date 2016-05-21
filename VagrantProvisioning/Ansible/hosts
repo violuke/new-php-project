@@ -1,0 +1,8 @@
+[dev_web]
+dev_web1 ansible_user=vagrant ansible_host=10.0.30.3
+
+[dev_db]
+dev_db1 ansible_user=vagrant ansible_host=10.0.30.4
+
+[live_web]
+#web1.example.com ansible_user=ansible fqdn=web1.example.com

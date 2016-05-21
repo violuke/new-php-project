@@ -1,0 +1,44 @@
+---
+- hosts: live_web
+  become: yes
+
+  pre_tasks:
+    - name: "Ensure var/www exists and is owned correctly"
+      file: path=/var/www owner=www-data group=www-data mode=0755 state=directory
+
+  roles:
+    - role: webbylab.sources
+      sources_repo: [SETME]
+      sources_git_pem: /vagrant/Private/SSHKeys/live_web_deploy [SETME]
+      sources_target_user: www-data
+      sources_version: master
+      sources_target_dir: /var/www
+      sources_force: yes
+
+  tasks:
+    - name: Add parameters.yml file
+      copy: src=/vagrant/private/symfony/parameters.yml dest=/var/www/web/app/config/parameters.yml owner=www-data group=www-data mode=0644
+
+    - name: Composer install
+      command: composer install --no-dev --optimize-autoloader --prefer-dist
+      become_user: www-data
+      args:
+          chdir: /var/www/web
+      environment:
+          SYMFONY_ENV: prod
+
+    - name: Clear Symfony cache
+      command: php bin/console cache:clear --env=prod --no-debug
+      become_user: www-data
+      args:
+          chdir: /var/www/Web
+      environment:
+          SYMFONY_ENV: prod
+
+    - name: Database migrations
+      command: php bin/console doctrine:migrations:migrate --no-interaction
+      become_user: www-data
+      args:
+          chdir: /var/www/web
+      environment:
+          SYMFONY_ENV: prod

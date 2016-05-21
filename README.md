@@ -10,7 +10,7 @@ environment and also your production environment to the same spec.
 3. Modify Ansible config as required (such as for your domain name). Set up DNS (or edit hosts file) to point your domain to `10.0.60.2`
     1. Set your own timezone in `VagrantProvisioning/debops/ansible/inventory/group_vars/all/ntp.yml`
     2. Set your domain in `VagrantProvisioning/debops/ansible/inventory/group_vars/all/bootstrap.yml`
-4. Within the Vagrant box, run `cd /vagrant/VagrantProvisioning/debops/ansible/ && debops bootstrap --user root` to configure all the web and db docker contains, just as they would be in production.
+4. Within the Vagrant box, run `cd /vagrant/VagrantProvisioning/debops/ansible/ && debops bootstrap --user vagrant` to configure all the web and db docker contains, just as they would be in production.
 5. When you want to publish your project to production, get your hosts file updated and run `TBC`
 
 ## Configuring your production servers

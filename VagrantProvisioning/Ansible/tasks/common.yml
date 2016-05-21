@@ -1,0 +1,5 @@
+---
+- name: Set hostname as FQDN
+  hostname: name="{{ fqdn }}"
+  when: fqdn is defined
+  become: yes

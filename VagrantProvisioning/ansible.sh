@@ -53,6 +53,7 @@ sudo pip install netaddr passlib
 sudo apt-get install uuid-runtime encfs git python-dev
 
 echo_title "Downloading debops packages"
+cd cd /vagrant/VagrantProvisioning/ansible
 debops-update
 
 echo_title "Installing docker"

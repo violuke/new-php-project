@@ -5,7 +5,7 @@ ferm_enabled: False
 nginx_vhosts:
   - listen: "80 default_server"
     server_name: "local.www.example.com www.example.com"
-    root: "/var/www/Web/web"
+    root: "/var/www/web"
     index: "index.php"
     extra_parameters: |
       # Config based on http://symfony.com/doc/current/cookbook/configuration/web_server_configuration.html

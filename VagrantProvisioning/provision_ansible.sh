@@ -53,17 +53,6 @@ chown vagrant:vagrant /home/vagrant/.ssh/config
 echo_title "Installing whois package to provide mkpass command"
 sudo apt-get install -y whois
 
-echo_title "Installing debops"
-sudo apt-get -y install python-pip git
-sudo pip install debops
-
-echo_title "Installing other debops dependencies"
-sudo pip install netaddr passlib
-sudo apt-get -y install uuid-runtime encfs python-dev
-
-echo_title "Downloading debops packages"
-cd /vagrant/VagrantProvisioning/debops/ansible
-debops-update
-
-echo_title "Upgrading all packages"
+echo_title "Installing some dependencies and upgrading all packages"
+sudo apt-get install -y git htop
 sudo apt-get upgrade -y

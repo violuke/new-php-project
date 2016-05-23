@@ -37,9 +37,9 @@ nginx_vhosts:
 
 nginx_worker_processes: "4" # Should ideally be (as is with a pre_task) overriden by a command determining the number of processors by using: grep processor /proc/cpuinfo | wc -l
 nginx_worker_connections: "1024"
-
 nginx_keepalive_timeout: "65"
 nginx_keepalive_requests: "300" # 30 seconds
+nginx_remove_default_vhost: true
 
 php_ppa: "ppa:ondrej/php"
 php_packages:
